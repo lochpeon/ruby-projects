@@ -1,34 +1,26 @@
 example = [4,3,78,2,0,2]
 
 def bubble_sort(array)
-  array.length.times do |number|
-    count = 0
-    array.each_with_index do |value, key|
-      unless (array.dig(key + 1).nil?)
-        if (array[key] <= array[key + 1])
-          next
-        else
-          array[key] = array[key] + array[key + 1]
-          array[key + 1] = array[key] - array[key + 1]
-          array[key] = array[key] - array[key + 1]
-          count += 1
-        end
-      else
-        break
-      end
+  n = array.length
 
-      p count
-      p "comparison after #{number}, #{key}: #{count == 0}"
-      if (count == 0)
-        return array
+  swapped = true
+  until (swapped == false) do
+    count = 0
+    # create a for loop from 1 to n-1
+    for i in 1...n
+      # compare if value on left adjacent of array[i] is greater
+      if (array[i-1] > array[i])
+        # if true, swap the values
+        array[i-1], array[i] = array[i], array[i-1]
+        swapped = true
+        count += 1
       end
     end
-
-    p array
+    # terminate the loop if no swaps happened
+    swapped = false if count < 1
   end
 
   array
 end
 
-p "before: #{example}"
-p "after: #{bubble_sort(example)}"
+p bubble_sort(example)
